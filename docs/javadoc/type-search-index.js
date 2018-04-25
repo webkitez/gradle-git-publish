@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"org.ajoberstar.gradle.git.publish.tasks","l":"GitPublishCommit"},{"p":"org.ajoberstar.gradle.git.publish","l":"GitPublishExtension"},{"p":"org.ajoberstar.gradle.git.publish","l":"GitPublishPlugin"},{"p":"org.ajoberstar.gradle.git.publish.tasks","l":"GitPublishPush"},{"p":"org.ajoberstar.gradle.git.publish.tasks","l":"GitPublishReset"}]

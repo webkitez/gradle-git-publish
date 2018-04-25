@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"org.ajoberstar.gradle.git.publish"},{"l":"org.ajoberstar.gradle.git.publish.tasks"}]

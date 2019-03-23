@@ -89,6 +89,47 @@ gitPublish {
     remoteFile('content.txt').text == 'published content here'
   }
 
+    def 'publish adds branch if remote repo empty after existing repo in build dir'() {
+    given:
+    projectFile('src/content.txt') << 'published content here'
+
+    buildFile << """
+plugins {
+  id 'org.ajoberstar.git-publish'
+}
+
+gitPublish {
+  repoUri = '${remote.repository.rootDir.toURI()}'
+  branch = 'my-pages'
+  contents.from 'src'
+}
+"""
+
+    println remote.branch.list()
+
+    build()
+    println remote.branch.list()
+
+    remote.close()
+    remoteFile('.').deleteDir()
+
+    remoteFile('.').mkdirs()
+    remote = Grgit.init(dir: remoteFile('.'))
+
+    println remote.branch.list()
+
+    when:
+    def result = build()
+    and:
+    println remote.branch.list()
+    remote.checkout(branch: 'my-pages')
+    println remote.branch.list()
+    then:
+    result.task(':gitPublishPush').outcome == TaskOutcome.SUCCESS
+    remote.log().size() == 1
+    remoteFile('content.txt').text == 'published content here'
+  }
+
   def 'can customize working directory'() {
     given:
     projectFile('src/content.txt') << 'published content here'
